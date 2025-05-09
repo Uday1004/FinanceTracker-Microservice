@@ -1,12 +1,47 @@
-# React + Vite
+# 💸 FinStack — Personal Finance Tracker (Microservices Architecture)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Track your *Earnings 💰*, *Expenses 💸*, and *Insights 📊* like a boss.  
+> Powered by **React + Node.js + Python + MongoDB**, deployed via **Vercel + Render**, running microservices with **Docker** and **RabbitMQ**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🧩 Why Microservices?
 
-## Expanding the ESLint configuration
+This isn’t your typical fullstack toy app.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Each core domain (auth, earnings, expenses, analytics, ML/image labeling) runs as an **independent service**. Here's why:
+
+- 🔧 Independent deployment & scaling
+- 🔁 Fault isolation (1 crash ≠ total crash)
+- 🔒 Domain separation (Auth stays Auth)
+- 🧠 Easy integration with AI (Python + ML)
+
+---
+
+## 🏗️ Architecture Overview
+
+```plaintext
++-------------+        +----------------+        +-----------------+
+|  React App  | <----> |  Auth Service  | <----> |  MongoDB Atlas  |
+| (Vite+RTK)  |        |  (Node + JWT)  |        |   (Shared DB)   |
++------+------+        +-------+--------+        +-----------------+
+       |                        |
+       |                        |
+       v                        v
++---------------+       +------------------+
+| Earnings API  | <---> |  Expense Service |
+| (Node.js)     |       |  (Node.js)       |
++---------------+       +------------------+
+       |
+       v
++---------------------+
+| Analytics / Charts  |
+| (Node.js + Chart.js)|
++---------------------+
+       |
+       v
++---------------------+
+| Flask Service       |
+| (Python, AI Labeling|
+|   or Notifications) |
++---------------------+
